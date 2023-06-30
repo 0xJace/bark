@@ -26,6 +26,7 @@ COPY . /src
 
 WORKDIR /src
 # 3. Install dependencies
+COPY /old_setup_files/requirements-pip.txt requirements-pip.txt
 RUN pip install -r requirements-pip.txt
 
 # 4. Install notebook
