@@ -5,13 +5,13 @@ ENV PYTHON_VERSION=3.10
 RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get -qq update \
     && apt-get -qq install --no-install-recommends \
+    build-essential \
     libsndfile1-dev \
     git \
     python${PYTHON_VERSION} \
     python${PYTHON_VERSION}-venv \
     python3-pip \
     && pip3 install --no-cache-dir --upgrade setuptools \
-    build-essential \
     && rm -rf /var/lib/apt/lists/*
 
 RUN ln -s -f /usr/bin/python${PYTHON_VERSION} /usr/bin/python3 && \
