@@ -23,6 +23,17 @@ RUN pip install --upgrade pip
 
 RUN pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu118
 
+# Install Jupyter
+RUN source /venv/bin/activate && \
+    pip3 install jupyterlab \
+        ipywidgets \
+        jupyter-archive \
+        jupyter_contrib_nbextensions \
+        gdown && \
+    jupyter contrib nbextension install --user && \
+    jupyter nbextension enable --py widgetsnbextension && \
+    deactivate
+
 # Install runpodctl
 RUN wget https://github.com/runpod/runpodctl/releases/download/v1.10.0/runpodctl-linux-amd -O runpodctl && \
     chmod a+x runpodctl && \
@@ -40,5 +51,10 @@ RUN pip install -r requirements-pip.txt
 # 4. Install notebook
 RUN pip install encodec rich-argparse
 
+# Set up the container startup script
+COPY start.sh /start.sh
+RUN chmod a+x /start.sh
+
 EXPOSE 8082
+# Gonna update bark_webui.py to start.sh
 CMD ["python", "bark_webui.py"]
