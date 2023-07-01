@@ -23,6 +23,10 @@ RUN pip install --upgrade pip
 
 RUN pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu118
 
+# Install runpodctl
+RUN wget https://github.com/runpod/runpodctl/releases/download/v1.10.0/runpodctl-linux-amd -O runpodctl && \
+    chmod a+x runpodctl && \
+    mv runpodctl /usr/local/bin
 
 FROM cuda as app
 # 2. Copy files
