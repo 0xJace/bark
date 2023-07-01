@@ -11,6 +11,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     python${PYTHON_VERSION} \
     python${PYTHON_VERSION}-venv \
     python3-pip \
+    python3-dev \
     && pip3 install --no-cache-dir --upgrade setuptools \
     && rm -rf /var/lib/apt/lists/*
 
