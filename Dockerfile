@@ -55,6 +55,6 @@ RUN pip install encodec rich-argparse
 COPY start.sh /start.sh
 RUN chmod a+x /start.sh
 
-EXPOSE 8082
+EXPOSE 8082 7860 8888 3000
 # Gonna update bark_webui.py to start.sh
-CMD ["python", "bark_webui.py"]
+CMD ["python", "start.sh"]
