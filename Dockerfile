@@ -54,7 +54,9 @@ RUN pip install encodec rich-argparse
 # Set up the container startup script
 COPY start.sh /start.sh
 RUN chmod a+x /start.sh
+COPY fix_venv.sh /fix_venv.sh
+RUN chmod +x /fix_venv.sh
 
-EXPOSE 8082 7860 8888 3000
-# Gonna update bark_webui.py to start.sh
-CMD ["python", "start.sh"]
+# Start the container
+SHELL ["/bin/bash", "--login", "-c"]
+CMD [ "/start.sh" ]
