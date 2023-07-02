@@ -37,4 +37,4 @@ RUN pip install -r requirements-pip.txt
 RUN pip install encodec rich-argparse
 
 EXPOSE 8082 7860 8888 3000
-CMD ["python", "bark_webui.py"]
+CMD ["python", "bark_webui.py --listen 0.0.0.0 --server_port 7860"]
