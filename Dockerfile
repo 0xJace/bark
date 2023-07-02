@@ -36,5 +36,5 @@ RUN pip install -r requirements-pip.txt
 # 4. Install notebook
 RUN pip install encodec rich-argparse
 
-EXPOSE 8082
+EXPOSE 8082 7860 8888 3000
 CMD ["python", "bark_webui.py"]
