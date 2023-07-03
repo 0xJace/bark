@@ -12,7 +12,7 @@ rsync -au /bark/ /workspace/bark/
 rm -rf /bark
 
 # Fix the venvs to make them work from /workspace
-echo "Fixing Stable Diffusion Web UI venv..."
+echo "Fixing Bark Web UI venv..."
 /fix_venv.sh /venv /workspace/venv
 
 if [[ ${PUBLIC_KEY} ]]
@@ -55,7 +55,7 @@ then
     echo "   ./python3 bark_webui.py --listen 0.0.0.0 --server_port 7860"
 else
     mkdir -p /workspace/logs
-    echo "Starting audiocraft"
+    echo "Starting bark"
     source /workspace/venv/bin/activate
     cd /workspace/bark && nohup python3 bark_webui.py --listen 0.0.0.0 --server_port 7860 > /workspace/logs/bark.log 2>&1 &
     echo "bark started"
