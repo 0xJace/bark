@@ -2,8 +2,6 @@ FROM nvidia/cuda:11.8.0-base-ubuntu22.04 as cuda
 
 ENV PYTHON_VERSION=3.10
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
 RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get -qq update \
     && apt-get -qq install --no-install-recommends \
@@ -17,9 +15,6 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && pip3 install --no-cache-dir --upgrade setuptools \
     && rm -rf /var/lib/apt/lists/*
 
-# Create workspace working directory
-WORKDIR /
-
 # Step 1: Set Python and pip
 RUN ln -s -f /usr/bin/python${PYTHON_VERSION} /usr/bin/python3 && \
     ln -s -f /usr/bin/python${PYTHON_VERSION} /usr/bin/python && \
@@ -29,19 +24,14 @@ RUN pip install --upgrade pip
 
 RUN pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu118
 
-# Create and use the Python venv
-RUN python3 -m venv /venv
-
 # Install Jupyter
-RUN source /venv/bin/activate && \
-    pip3 install jupyterlab \
+RUN pip3 install jupyterlab \
         ipywidgets \
         jupyter-archive \
         jupyter_contrib_nbextensions \
         gdown && \
     jupyter contrib nbextension install --user && \
-    jupyter nbextension enable --py widgetsnbextension && \
-    deactivate
+    jupyter nbextension enable --py widgetsnbextension
 
 # Install runpodctl
 RUN wget https://github.com/runpod/runpodctl/releases/download/v1.10.0/runpodctl-linux-amd -O runpodctl && \
